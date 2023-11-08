@@ -13,6 +13,9 @@ using namespace std;
 #include "KeyEventHandler.h"
 #include "Scene.h"
 
+
+#define SCREEN_WIDTH 272
+#define SCREEN_HEIGHT 256
 #define MAX_FRAME_RATE 100
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEYBOARD_STATE_SIZE 256
@@ -59,6 +62,8 @@ class CGame
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
 
+	int screen_width;
+	int screen_height;
 public:
 	// Init DirectX, Sprite Handler
 	void Init(HWND hWnd, HINSTANCE hInstance);
@@ -80,6 +85,10 @@ public:
 	}
 
 	LPTEXTURE LoadTexture(LPCWSTR texturePath);
+
+
+	float GetCamX() { return cam_x; }
+	float GetCamY() { return cam_y; }
 
 	// Keyboard related functions 
 	void InitKeyboard();
@@ -113,7 +122,8 @@ public:
 
 	void _ParseSection_TEXTURES(string line);
 
-
+	int GetScreenWidth() { return screen_width; }
+	int GetScreenHeight() { return screen_height; }
 	~CGame();
 };
 typedef CGame* LPGAME;

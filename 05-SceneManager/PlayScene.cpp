@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "AssetIDs.h"
-
+#include "Map.h"
 #include "PlayScene.h"
 #include "Utils.h"
 #include "Textures.h"
@@ -25,7 +25,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
 #define SCENE_SECTION_OBJECTS	2
-
+#define  SCENE_SECTION_TILEMAP_DATA	3
 #define ASSETS_SECTION_UNKNOWN -1
 #define ASSETS_SECTION_SPRITES 1
 #define ASSETS_SECTION_ANIMATIONS 2
@@ -66,6 +66,63 @@ void CPlayScene::_ParseSection_ASSETS(string line)
 	LoadAssets(path.c_str());
 }
 
+
+
+void CPlayScene::_ParseSection_TILEMAP_DATA(string line)
+{
+	int ID, rowMap, columnMap, columnTile, rowTile, totalTiles, startX, startY;
+	LPCWSTR path = ToLPCWSTR(line);
+	ifstream f;
+
+	f.open(path);
+	f >> ID >> rowMap >> columnMap >> rowTile >> columnTile >> totalTiles >> startX >> startY;
+	//Init Map Matrix
+
+	int** TileMapData = new int* [rowMap];
+	for (int i = 0; i < rowMap; i++)
+	{
+		TileMapData[i] = new int[columnMap];
+		for (int j = 0; j < columnMap; j++)
+		{
+			f >> TileMapData[i][j];
+		}
+
+	}
+	f.close();
+
+	current_map = new CMap(ID, rowMap, columnMap, rowTile, columnTile, totalTiles, startX, startY);
+	current_map->ExtractTileFromTileSet();
+	current_map->SetTileMapData(TileMapData);
+}
+
+//void CPlayScene::_ParseSection_TILEMAP_HIDDEN_DATA(string line)
+//{
+//	int ID, rowMap, columnMap, columnTile, rowTile, totalTiles, startX, startY;
+//	LPCWSTR path = ToLPCWSTR(line);
+//	ifstream f;
+//
+//	f.open(path);
+//	f >> ID >> rowMap >> columnMap >> rowTile >> columnTile >> totalTiles >> startX >> startY;
+//	//Init Map Matrix
+//
+//	int** TileMapData = new int* [rowMap];
+//	for (int i = 0; i < rowMap; i++)
+//	{
+//		TileMapData[i] = new int[columnMap];
+//		for (int j = 0; j < columnMap; j++)
+//		{
+//			f >> TileMapData[i][j];
+//		}
+//
+//	}
+//	f.close();
+//
+//	hidden_map = new CMap(ID, rowMap, columnMap, rowTile, columnTile, totalTiles, startX, startY);
+//	hidden_map->ExtractTileFromTileSet();
+//	hidden_map->SetTileMapData(TileMapData);
+//}
+
+
 void CPlayScene::_ParseSection_ANIMATIONS(string line)
 {
 	vector<string> tokens = split(line);
@@ -76,7 +133,7 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 	LPANIMATION ani = new CAnimation();
 
 	int ani_id = atoi(tokens[0].c_str());
-	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
+	for (int i = 1; i < tokens.size(); i += 2)	 
 	{
 		int sprite_id = atoi(tokens[i].c_str());
 		int frame_time = atoi(tokens[i+1].c_str());
@@ -119,7 +176,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 
-	case OBJECT_TYPE_PLATFORM:
+	/*case OBJECT_TYPE_PLATFORM:
 	{
 
 		float cell_width = (float)atof(tokens[3].c_str());
@@ -136,7 +193,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		);
 
 		break;
-	}
+	}*/
 
 	case OBJECT_TYPE_PORTAL:
 	{
@@ -213,6 +270,9 @@ void CPlayScene::Load()
 		if (line[0] == '#') continue;	// skip comment lines	
 		if (line == "[ASSETS]") { section = SCENE_SECTION_ASSETS; continue; };
 		if (line == "[OBJECTS]") { section = SCENE_SECTION_OBJECTS; continue; };
+		// Thêm Title map cho Game
+		if (line == "[TILEMAP]") { section = SCENE_SECTION_TILEMAP_DATA; continue; }
+
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
 		//
@@ -222,6 +282,7 @@ void CPlayScene::Load()
 		{ 
 			case SCENE_SECTION_ASSETS: _ParseSection_ASSETS(line); break;
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+			case SCENE_SECTION_TILEMAP_DATA: _ParseSection_TILEMAP_DATA(line); break;
 		}
 	}
 
@@ -266,6 +327,8 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
+	CGame* game = CGame::GetInstance();
+	current_map->Render();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }
@@ -293,10 +356,10 @@ void CPlayScene::Unload()
 {
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
-
+	delete current_map;
 	objects.clear();
 	player = NULL;
-
+	current_map = nullptr;
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
 }
 
