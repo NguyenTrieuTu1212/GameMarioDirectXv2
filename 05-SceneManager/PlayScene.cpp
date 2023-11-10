@@ -28,7 +28,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define ASSETS_SECTION_SPRITES 1
 #define ASSETS_SECTION_ANIMATIONS 2
 
-#define MAX_SCENE_LINE 1024
+#define MAX_SCENE_LINE 2048
 
 void CPlayScene::_ParseSection_SPRITES(string line)
 {
@@ -42,7 +42,6 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 	int r = atoi(tokens[3].c_str());
 	int b = atoi(tokens[4].c_str());
 	int texID = atoi(tokens[5].c_str());
-
 	LPTEXTURE tex = CTextures::GetInstance()->Get(texID);
 	if (tex == NULL)
 	{
@@ -60,7 +59,7 @@ void CPlayScene::_ParseSection_ASSETS(string line)
 	if (tokens.size() < 1) return;
 
 	wstring path = ToWSTR(tokens[0]);
-	
+	DebugOut(L"[TrieuTu] ",tokens[0]);
 	LoadAssets(path.c_str());
 }
 
