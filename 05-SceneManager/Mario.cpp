@@ -9,6 +9,7 @@
 #include "Portal.h"
 #include "Lucky_Block.h"
 #include "Collision.h"
+#include "PlayScene.h"
 
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -99,8 +100,11 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithLuckyBlock(LPCOLLISIONEVENT e) {
 	CLuckyBlock* luckyBlock = dynamic_cast<CLuckyBlock*>(e->obj);
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	if (luckyBlock->GetState() != BLOCK_COLLETED_STATE)
 	{
+		CCoin* coin = new CCoin(210,118);
+		scene->AddObject(coin);
 		luckyBlock->SetState(BLOCK_COLLETED_STATE);
 	}
 	

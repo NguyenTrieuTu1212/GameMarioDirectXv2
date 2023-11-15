@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Game.h"
 #include "Textures.h"
 #include "Scene.h"
@@ -29,8 +29,10 @@ protected:
 	void LoadAssets(LPCWSTR assetFile);
 
 public: 
+	
 	CPlayScene(int id, LPCWSTR filePath);
-
+	// Dùng để intance object
+	virtual void AddObject(LPGAMEOBJECT object);
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
