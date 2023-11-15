@@ -153,6 +153,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="Lucky_Block.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="Platform.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="KeyEventHandler.h" />
+    <ClInclude Include="Lucky_Block.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlayScene.h" />
