@@ -429,7 +429,7 @@ void CGame::ProcessKeyboard()
 	}
 }
 
-#define MAX_GAME_LINE 1024
+#define MAX_GAME_LINE 2048
 
 
 #define GAME_FILE_SECTION_UNKNOWN -1

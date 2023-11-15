@@ -7,6 +7,9 @@
 #define ID_TEX_MARIO 0
 #define ID_TEX_ENEMY 10
 #define ID_TEX_MISC 20
+#define ID_TEX_MISC_2 25
+#define ID_TEX_TILE_MAP 30
+
 
 
 #define OBJECT_TYPE_MARIO	0
@@ -15,6 +18,8 @@
 #define OBJECT_TYPE_KOOPAS	3
 #define OBJECT_TYPE_COIN 4
 #define OBJECT_TYPE_PLATFORM 5
+#define OBJECT_TYPE_TREE 6
+#define OBJECT_TYPE_GRASS 7
 
 
 #define OBJECT_TYPE_PORTAL	50
