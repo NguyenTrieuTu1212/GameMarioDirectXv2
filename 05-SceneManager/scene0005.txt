@@ -64,6 +64,7 @@ goomba.txt
 
 #LUCKY_BLOCK
 8	210	120
+8	226	120
 
 #Goomba
 2	300	10

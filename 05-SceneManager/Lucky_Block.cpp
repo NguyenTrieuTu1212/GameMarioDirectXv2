@@ -3,7 +3,9 @@
 void CLuckyBlock::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
-	animations->Get(ID_ANI_LUCKY_BLOCK)->Render(x, y);
+	int idAnim = ID_ANI_LUCKY_BLOCK_NOT_COLLECT;
+	if (state == BLOCK_COLLETED_STATE) idAnim = ID_ANI_LUCKY_BLOCK_COLLECTED;
+	animations->Get(idAnim)->Render(x, y);
 	RenderBoundingBox();
 }
 

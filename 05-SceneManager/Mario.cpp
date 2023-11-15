@@ -53,6 +53,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<CPortal*>(e->obj))
 		OnCollisionWithPortal(e);
+	else if (dynamic_cast<CLuckyBlock*>(e->obj))
+		OnCollisionWithLuckyBlock(e);
 	
 }
 
@@ -93,10 +95,14 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
-	coin++;
 }
 
 void CMario::OnCollisionWithLuckyBlock(LPCOLLISIONEVENT e) {
+	CLuckyBlock* luckyBlock = dynamic_cast<CLuckyBlock*>(e->obj);
+	if (luckyBlock->GetState() != BLOCK_COLLETED_STATE)
+	{
+		luckyBlock->SetState(BLOCK_COLLETED_STATE);
+	}
 	
 }
 
