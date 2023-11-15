@@ -9,8 +9,8 @@ void CLuckyBlock::Render()
 
 void CLuckyBlock::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x - BlOCK_BBOX_WIDTH / 2;
-	t = y - BlOCK_BBOX_HEIGHT / 2;
+	l = x - BlOCK_BBOX_WIDTH/2;
+	t = y - BlOCK_BBOX_HEIGHT/2;
 	r = l + BlOCK_BBOX_WIDTH;
 	b = t + BlOCK_BBOX_HEIGHT;
 }

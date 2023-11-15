@@ -7,8 +7,9 @@
 #include "Goomba.h"
 #include "Coin.h"
 #include "Portal.h"
-
+#include "Lucky_Block.h"
 #include "Collision.h"
+
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -42,9 +43,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		vy = 0;
 		if (e->ny < 0) isOnPlatform = true;
 	}
-	else 
-	if (e->nx != 0 && e->obj->IsBlocking())
-	{
+	else if (e->nx != 0 && e->obj->IsBlocking()){
 		vx = 0;
 	}
 
@@ -54,6 +53,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<CPortal*>(e->obj))
 		OnCollisionWithPortal(e);
+	
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -94,6 +94,10 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
 	coin++;
+}
+
+void CMario::OnCollisionWithLuckyBlock(LPCOLLISIONEVENT e) {
+	
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)

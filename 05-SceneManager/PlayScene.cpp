@@ -115,9 +115,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
+	/*case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;*/
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
-	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
+	/*case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;*/
 	case OBJECT_TYPE_TREE: obj = new CTree(x, y); break;
 	case OBJECT_TYPE_GRASS: obj = new CGrass(x, y); break;
 	case OBJECT_TYPE_LUCKY_BLOCK: obj = new CLuckyBlock(x, y); break;
@@ -128,8 +128,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	// General object setup
 	obj->SetPosition(x, y);
-
-
 	objects.push_back(obj);
 }
 
