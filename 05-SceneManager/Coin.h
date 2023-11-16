@@ -36,7 +36,7 @@ public:
 	bool getValueIsCollected() { return isCollect; }
 	void setValueIsCollected(bool isCollect) { this->isCollect = isCollect;}
 
-	virtual void OnNoCollision(DWORD dt);
 
+	virtual void OnNoCollision(DWORD dt);
 	void SetState(int state);
 };

@@ -101,17 +101,22 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithLuckyBlock(LPCOLLISIONEVENT e) {
 	CLuckyBlock* luckyBlock = dynamic_cast<CLuckyBlock*>(e->obj);
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	if (luckyBlock->GetState() != BLOCK_COLLETED_STATE)
-	{
-		float xTemp, yTemp, minY;
+	if (!checkObjectInCamera(this)) return;
+	
+	if (luckyBlock->GetTypeSpawn() == TYPE_OBJECT_COIN) {
+
+		if (luckyBlock->GetState() == BLOCK_COLLETED_STATE) return;
+		float xTemp, yTemp;
 		xTemp = luckyBlock->GetX();
 		yTemp = luckyBlock->GetY();
 		CCoin* coin = new CCoin(xTemp, yTemp);
 		coin->SetState(COIN_SUMMON_STATE);
-		scene->AddObject(coin);
 		luckyBlock->SetState(BLOCK_COLLETED_STATE);
+		scene->AddObject(coin);
 	}
-	
+	else if (luckyBlock->GetTypeSpawn() == TYPE_OBJECT_MUSHROOM) {
+
+	}
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
