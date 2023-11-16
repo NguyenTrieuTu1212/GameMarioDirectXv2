@@ -26,6 +26,7 @@ protected:
 	float ax;				
 	float ay; 
 
+	// test
 	ULONGLONG die_start;
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
