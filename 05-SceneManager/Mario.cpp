@@ -103,7 +103,11 @@ void CMario::OnCollisionWithLuckyBlock(LPCOLLISIONEVENT e) {
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	if (luckyBlock->GetState() != BLOCK_COLLETED_STATE)
 	{
-		CCoin* coin = new CCoin(210,118);
+		float xTemp, yTemp, minY;
+		xTemp = luckyBlock->GetX();
+		yTemp = luckyBlock->GetY();
+		CCoin* coin = new CCoin(xTemp, yTemp);
+		coin->SetState(COIN_SUMMON_STATE);
 		scene->AddObject(coin);
 		luckyBlock->SetState(BLOCK_COLLETED_STATE);
 	}
