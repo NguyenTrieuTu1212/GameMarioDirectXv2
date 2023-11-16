@@ -102,21 +102,28 @@ void CMario::OnCollisionWithLuckyBlock(LPCOLLISIONEVENT e) {
 	CLuckyBlock* luckyBlock = dynamic_cast<CLuckyBlock*>(e->obj);
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	if (!checkObjectInCamera(this)) return;
+	if (luckyBlock->GetState() == BLOCK_COLLETED_STATE) return;
 	
 	if (luckyBlock->GetTypeSpawn() == TYPE_OBJECT_COIN) {
 
-		if (luckyBlock->GetState() == BLOCK_COLLETED_STATE) return;
 		float xTemp, yTemp;
 		xTemp = luckyBlock->GetX();
 		yTemp = luckyBlock->GetY();
 		CCoin* coin = new CCoin(xTemp, yTemp);
 		coin->SetState(COIN_SUMMON_STATE);
-		luckyBlock->SetState(BLOCK_COLLETED_STATE);
 		scene->AddObject(coin);
 	}
 	else if (luckyBlock->GetTypeSpawn() == TYPE_OBJECT_MUSHROOM) {
+		float xTemp, yTemp;
+		xTemp = luckyBlock->GetX();
+		yTemp = luckyBlock->GetY();
+		CGoomba* goomba = new CGoomba(xTemp, yTemp);
+		goomba->SetState(GOOMBA_STATE_SPAWN);
+		scene->AddObject(goomba);
 
 	}
+
+	luckyBlock->SetState(BLOCK_COLLETED_STATE);
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)

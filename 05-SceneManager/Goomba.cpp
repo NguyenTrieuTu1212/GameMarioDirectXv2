@@ -90,5 +90,8 @@ void CGoomba::SetState(int state)
 		case GOOMBA_STATE_WALKING: 
 			vx = -GOOMBA_WALKING_SPEED;
 			break;
+		case GOOMBA_STATE_SPAWN:
+			vy = -GOOMBA_OUT_BRICK;
+			break;
 	}
 }

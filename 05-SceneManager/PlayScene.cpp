@@ -128,7 +128,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_TREE: obj = new CTree(x, y); break;
 	case OBJECT_TYPE_GRASS: obj = new CGrass(x, y); break;
 	case OBJECT_TYPE_LUCKY_BLOCK_SPAWN_COIN: obj = new CLuckyBlock(x, y, TYPE_OBJECT_COIN); break;
-	//case OBJECT_TYPE_LUCKY_BLOCK_SPAWN_MUSHROOM: obj = new CLuckyBlock(x, y, TYPE_OBJECT_MUSHROOM); break;
+	case OBJECT_TYPE_LUCKY_BLOCK_SPAWN_MUSHROOM: obj = new CLuckyBlock(x, y, TYPE_OBJECT_MUSHROOM); break;
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;
