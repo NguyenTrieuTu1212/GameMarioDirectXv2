@@ -24,11 +24,18 @@ void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		vx += ax * dt;
 		vy += ay * dt;
 	}
+
 	else if (state == MUSHROOM_OUT_BLOCK_STATE) {
 		if (startY - y < RED_MUSHROOM_BBOX_HEIGHT) {
 			vy = MUSHROOM_UN_GRAVITY_OUT_BRICK;
 			vx = 0;
-		}else SetState(MUSHROOM_RUN_STATE);
+		}
+		else SetState(MUSHROOM_RUN_STATE);
+	}
+
+	else if (state == MUSHROOM_DIE_STATE) {
+		isDeleted = true;
+		return;
 	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -58,6 +65,11 @@ void CMushroom::SetState(int state) {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	switch (state)
 	{
+	case MUSHROOM_DIE_STATE:
+		vx = 0;
+		vy = 0;
+		ay = 0;
+		break;
 	case MUSHROOM_RUN_STATE: 
 		if (x < mario->GetX()) vx = -MUSHROOM_SPEED;
 		else vx = MUSHROOM_SPEED;

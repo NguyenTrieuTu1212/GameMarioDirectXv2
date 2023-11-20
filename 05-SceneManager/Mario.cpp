@@ -1,4 +1,4 @@
-#include <algorithm>
+﻿#include <algorithm>
 #include "debug.h"
 
 #include "Mario.h"
@@ -57,7 +57,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPortal(e);
 	else if (dynamic_cast<CLuckyBlock*>(e->obj))
 		OnCollisionWithLuckyBlock(e);
-	
+	else if (dynamic_cast<CMushroom*>(e->obj))
+		OnCollisionWithMushroom(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -90,6 +91,27 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 					SetState(MARIO_STATE_DIE);
 				}
 			}
+		}
+	}
+}
+
+
+void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e) {
+
+	CMushroom *mushroom = dynamic_cast<CMushroom*>(e->obj);
+	if (untouchable == 0)
+	{
+		if (mushroom->GetState() != MUSHROOM_DIE_STATE)
+		{
+			if (level < MARIO_LEVEL_BIG)
+			{
+				level = MARIO_LEVEL_BIG;
+				// tránh cho khi mario phóng to sẽ rơi xuống 
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+				mushroom->SetState(MUSHROOM_DIE_STATE);
+				StartUntouchable();
+			}
+
 		}
 	}
 }
@@ -268,7 +290,7 @@ void CMario::Render()
 		aniId = GetAniIdSmall();
 	animations->Get(aniId)->Render(x, y);
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 	
 	DebugOutTitle(L"Coins: %d", coin);
 }

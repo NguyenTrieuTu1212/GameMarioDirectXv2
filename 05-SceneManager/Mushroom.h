@@ -17,6 +17,7 @@
 
 #define MUSHROOM_OUT_BLOCK_STATE 90
 #define MUSHROOM_RUN_STATE 91
+#define MUSHROOM_DIE_STATE 92
 
 
 
@@ -28,7 +29,7 @@ class CMushroom : public CGameObject
 	float startY;
 
 	virtual int IsCollidable() { return 1; }
-	virtual int IsBlocking() { return 0; }
+	virtual int IsBlocking() { return 1; }
 public:
 	CMushroom(float x, float y) : CGameObject(x, y) {
 		this->ay = MUSHROOM_GRAVITY;
