@@ -8,28 +8,15 @@ Tree.txt
 Grass.txt
 luckyblock.txt
 goomba.txt
+mushroom.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
-# type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 6 = Tree, 7 = Grass, 8 = LuckyBlock
+# type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 6 = Tree, 7 = Grass, 8 = Lucky_Block_Spawn_Coin, 9 = Lucky_Block_Spawn_Coin, 10 = mushroom
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
 0	120	10
-
-#COIN
-4	100	120
-4	120	120
-4	140	120
-4	160	120
-4	180	120
-
-4	100	100
-4	120	100
-4	140	100
-4	160	100
-4	180	100
-
 
 # BRICKS
 1	0	180
@@ -62,12 +49,21 @@ goomba.txt
 1	432	180
 1	448	180
 
-#LUCKY_BLOCK
-8	210	120
-9	226	120
-
-#Goomba
+#GOOMBA
 2	300	10
+
+#COIN
+4	100	120
+4	120	120
+4	140	120
+4	160	120
+4	180	120
+
+4	100	100
+4	120	100
+4	140	100
+4	160	100
+4	180	100
 
 #TREE
 6 	120	140
@@ -76,6 +72,15 @@ goomba.txt
 7	210	165
 7	225	165
 7	240	165
+
+#LUCKY_BLOCK
+8	210	120
+8	226	120
+9	280	100
+9	296	100
+
+#MUSHROOM
+10	210	140
 
 #Portal 
 50	200	160	216	180	1

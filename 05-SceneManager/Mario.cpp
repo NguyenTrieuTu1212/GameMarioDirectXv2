@@ -8,6 +8,7 @@
 #include "Coin.h"
 #include "Portal.h"
 #include "Lucky_Block.h"
+#include "Mushroom.h"
 #include "Collision.h"
 #include "PlayScene.h"
 
@@ -117,9 +118,8 @@ void CMario::OnCollisionWithLuckyBlock(LPCOLLISIONEVENT e) {
 		float xTemp, yTemp;
 		xTemp = luckyBlock->GetX();
 		yTemp = luckyBlock->GetY();
-		CGoomba* goomba = new CGoomba(xTemp, yTemp);
-		goomba->SetState(GOOMBA_STATE_SPAWN);
-		scene->AddObject(goomba);
+		CMushroom* redMushroom = new CMushroom(xTemp, yTemp);
+		scene->AddObject(redMushroom);
 
 	}
 
