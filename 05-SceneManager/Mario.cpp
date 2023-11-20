@@ -99,26 +99,34 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e) {
 
 	CMushroom *mushroom = dynamic_cast<CMushroom*>(e->obj);
-	if (untouchable == 0)
+	ay = -0.002f;
+	if (mushroom->GetState() != MUSHROOM_DIE_STATE)
 	{
-		if (mushroom->GetState() != MUSHROOM_DIE_STATE)
+		if (level < MARIO_LEVEL_BIG)
 		{
-			if (level < MARIO_LEVEL_BIG)
-			{
-				level = MARIO_LEVEL_BIG;
-				// tránh cho khi mario phóng to sẽ rơi xuống 
-				vy = -MARIO_JUMP_DEFLECT_SPEED;
-				mushroom->SetState(MUSHROOM_DIE_STATE);
-				StartUntouchable();
-			}
-
+			
+			SetLevel(MARIO_LEVEL_BIG);
+			StartUntouchable();
+			mushroom->SetState(MUSHROOM_DIE_STATE);
 		}
+
 	}
+	
+	
 }
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
+}
+
+
+void CMario::SetLevel(int l) {
+	if (this->level == MARIO_LEVEL_SMALL)
+	{
+		y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT);
+	}
+	level = l;
 }
 
 void CMario::OnCollisionWithLuckyBlock(LPCOLLISIONEVENT e) {
@@ -153,6 +161,8 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 	CPortal* p = (CPortal*)e->obj;
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
 }
+
+
 
 //
 // Get animation ID for small Mario
@@ -295,6 +305,8 @@ void CMario::Render()
 	DebugOutTitle(L"Coins: %d", coin);
 }
 
+
+
 void CMario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
@@ -403,13 +415,5 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	}
 }
 
-void CMario::SetLevel(int l)
-{
-	// Adjust position to avoid falling off platform
-	if (this->level == MARIO_LEVEL_SMALL)
-	{
-		y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
-	}
-	level = l;
-}
+
 

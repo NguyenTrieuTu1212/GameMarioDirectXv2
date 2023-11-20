@@ -9,10 +9,11 @@ Grass.txt
 luckyblock.txt
 goomba.txt
 mushroom.txt
+platform1.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
-# type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 6 = Tree, 7 = Grass, 8 = Lucky_Block_Spawn_Coin, 9 = Lucky_Block_Spawn_Coin, 10 = mushroom
+# type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 6 = Tree, 7 = Grass, 8 = Lucky_Block_Spawn_Coin, 9 = Lucky_Block_Spawn_Coin, 10 = mushroom_1
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
@@ -74,13 +75,16 @@ mushroom.txt
 7	240	165
 
 #LUCKY_BLOCK
-8	210	120
-8	226	120
-9	280	100
-9	296	100
+8	210	115
+8	226	115
+9	260	100
+9	276	100
 
 #MUSHROOM
 10	210	140
+
+#PLATFORM
+11	320	140
 
 #Portal 
 50	200	160	216	180	1

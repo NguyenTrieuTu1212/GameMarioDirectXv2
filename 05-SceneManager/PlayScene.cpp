@@ -31,7 +31,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define ASSETS_SECTION_SPRITES 1
 #define ASSETS_SECTION_ANIMATIONS 2
 
-#define MAX_SCENE_LINE 4096
+#define MAX_SCENE_LINE 1024
 
 
 void CPlayScene::AddObject(LPGAMEOBJECT object)
@@ -123,13 +123,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
+	/*case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;*/
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
 	/*case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;*/
 	case OBJECT_TYPE_TREE: obj = new CTree(x, y); break;
 	case OBJECT_TYPE_GRASS: obj = new CGrass(x, y); break;
 	case OBJECT_TYPE_LUCKY_BLOCK_SPAWN_COIN: obj = new CLuckyBlock(x, y, TYPE_OBJECT_COIN); break;
 	case OBJECT_TYPE_LUCKY_BLOCK_SPAWN_MUSHROOM: obj = new CLuckyBlock(x, y, TYPE_OBJECT_MUSHROOM); break;
+	/*case OBJECT_TYPE_PLATFORM: obj = new CPlatform(x, y, TYPE_PLATFORM_1); break;*/
 	/*case OBJECT_TYPE_MUSHROOM: obj = new CMushroom(x, y); break;*/
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
